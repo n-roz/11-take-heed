@@ -1,18 +1,18 @@
 const PORT = process.env.PORT || 3001;
 const fs = require('fs');
-const path = require('path');
+const path = require('path'); //Utilities for dealing with file paths
 
-const express = require('express');
-const app = express();
+const express = require('express'); //Web framework
+const app = express(); 
 
-const allNotes = require('./db/db.json');
+const allNotes = require('../db/db.json');
 // parse incoming string or array data
 app.use(express.urlencoded({extended: true}));
 // parse incoming JSON data
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => { 
     res.json(allNotes.slice(1));
 });
 
@@ -42,7 +42,7 @@ function createNewNote(body, notesArray) {
         notesArray.push(newNote);
         fs.writeFileSync (
             path.join(__dirname, './db/db.json'),
-            JSON.stringify(notesArray)
+            JSON.stringify(notesArray, null, 2)
         );
         return newNote;
     }
@@ -55,7 +55,7 @@ function deleteNote(id, notesArray) {
             notesArray.splice(i, 1);
             fs.writeFileSync(
                 path.join(__dirname, './db/db.json'),
-                JSON.stringify(notesArray)
+                JSON.stringify(notesArray, null, 2)
             );
             break;
         }
