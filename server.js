@@ -5,7 +5,7 @@ const path = require('path'); //Utilities for dealing with file paths
 const express = require('express'); //Web framework
 const app = express(); 
 
-const allNotes = require('db/db.json');
+const allNotes = require('./db/db.json');
 // parse incoming string or array data
 app.use(express.urlencoded({extended: true}));
 // parse incoming JSON data
@@ -47,6 +47,11 @@ function createNewNote(body, notesArray) {
         return newNote;
     }
 }
+
+app.post('/api/notes', (req, res) => {
+    const newNote = createNewNote(req.body, allNotes);
+    res.json(newNote);
+});
 
 function deleteNote(id, notesArray) {
     for (let i = 0; i < notesArray.length; i++) {
