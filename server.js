@@ -5,7 +5,7 @@ const path = require('path'); //Utilities for dealing with file paths
 const express = require('express'); //Web framework
 const app = express(); 
 
-const allNotes = require('Develop/db/db.json');
+const allNotes = require('db/db.json');
 // parse incoming string or array data
 app.use(express.urlencoded({extended: true}));
 // parse incoming JSON data
