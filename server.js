@@ -1,16 +1,28 @@
+// from the module zookeeper project
+const express = require('express');
+
+const app = express();
+
 const PORT = process.env.PORT || 3001;
-const fs = require('fs');
-const path = require('path'); //Utilities for dealing with file paths
 
-const express = require('express'); //Web framework
-const app = express(); 
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
-const allNotes = require('./db/db.json');
-// parse incoming string or array data
-app.use(express.urlencoded({extended: true}));
-// parse incoming JSON data
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
+
+// Use apiRoutes
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
+
+app.listen(PORT, () => {
+  console.log(`API server now on port ${PORT}!`);
+});
+
+
+
+
 
 app.get('/api/notes', (req, res) => { 
     res.json(allNotes.slice(1));
@@ -136,3 +148,5 @@ app.delete('/api/notes/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
   });
+
+

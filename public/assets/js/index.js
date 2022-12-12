@@ -70,6 +70,7 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    id: uuidv1()
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();
@@ -127,31 +128,31 @@ const renderNoteList = async (notes) => {
 
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
-    const liEl = document.createElement('li');
-    liEl.classList.add('list-group-item');
+    const $liEl = document.createElement('li');
+    $liEl.classList.add('list-group-item');
 
-    const spanEl = document.createElement('span');
-    spanEl.classList.add('list-item-title');
-    spanEl.innerText = text;
-    spanEl.addEventListener('click', handleNoteView);
+    const $spanEl = document.createElement('span');
+    $spanEl.classList.add('list-item-title');
+    $spanEl.innerText = text;
+    $spanEl.addEventListener('click', handleNoteView);
 
-    liEl.append(spanEl);
+    $liEl.append($spanEl);
 
     if (delBtn) {
-      const delBtnEl = document.createElement('i');
-      delBtnEl.classList.add(
+      const $delBtnEl = document.createElement('i');
+      $delBtnEl.classList.add(
         'fas',
         'fa-trash-alt',
         'float-right',
         'text-danger',
         'delete-note'
       );
-      delBtnEl.addEventListener('click', handleNoteDelete);
+      $delBtnEl.addEventListener('click', handleNoteDelete);
 
-      liEl.append(delBtnEl);
+      $liEl.append($delBtnEl);
     }
 
-    return liEl;
+    return $liEl;
   };
 
   if (jsonNotes.length === 0) {
