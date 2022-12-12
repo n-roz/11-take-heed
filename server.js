@@ -22,17 +22,26 @@ app.use(express.static('public'));
 // // 1:38
 // // So I would really focus on restructuring your createNewNote function a little to follow that pattern, but you have the right idea since you are able to access the body with your const newNote!
 
-//     // Add a unique id to the note using uuid package
-//     const note = { title, text, id: uuidv1() };
+const generateUniqueId = require('generate-unique-id');
 
 function createNewNote(body, notesArray) {
   const note = body;
+  if (!Array.isArray(notesArray)) {
+            notesArray = [];
+    
+            if (notesArray.length === 0)
+                notesArray.push(0);
+    
+            body.id = notesArray[0];
+            notesArray[0]++;
+  
   notesArray.push(note);
   fs.writeFileSync(
     path.join(__dirname, './db/db.json'),
-    JSON.stringify(notesArray, null, 2)
+    JSON.stringify({ notes: notesArray }, null, 2)
   );
   return note;
+  }
 };
 
 // routes
@@ -58,6 +67,7 @@ app.get('/api/notes', (req, res) => {
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. 
 // You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post('/api/notes', (req, res) => {
+  req.body.id = generateUniqueId();
   const note = createNewNote(req.body, notes);
   res.json(note);
 });

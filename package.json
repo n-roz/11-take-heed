@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/n-roz/express-note-taker#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "generate-unique-id": "^2.0.1"
   }
 }
