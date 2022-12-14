@@ -3,8 +3,8 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const app = express();
-
-const { notes } = require("./db/db.json");
+const generateUniqueId = require('generate-unique-id');
+const { allNotes } = require("./db/db.json");
 
 const PORT = process.env.PORT || 3001;
 
@@ -22,25 +22,23 @@ app.use(express.static('public'));
 // // 1:38
 // // So I would really focus on restructuring your createNewNote function a little to follow that pattern, but you have the right idea since you are able to access the body with your const newNote!
 
-const generateUniqueId = require('generate-unique-id');
-
 function createNewNote(body, notesArray) {
-  const note = body;
+  const newNote = body;
   if (!Array.isArray(notesArray)) {
-            notesArray = [];
-    
-            if (notesArray.length === 0)
-                notesArray.push(0);
-    
-            body.id = notesArray[0];
-            notesArray[0]++;
-  
-  notesArray.push(note);
-  fs.writeFileSync(
-    path.join(__dirname, './db/db.json'),
-    JSON.stringify({ notes: notesArray }, null, 2)
-  );
-  return note;
+    notesArray = [];
+
+    if (notesArray.length === 0)
+      notesArray.push(0);
+
+    body.id = notesArray[0];
+    notesArray[0]++;
+
+    notesArray.push(newNote);
+    fs.writeFileSync(
+      path.join(__dirname, './db/db.json'),
+      JSON.stringify(notesArray, null, 2)
+    );
+    return newNote;
   }
 };
 
@@ -61,25 +59,42 @@ app.get('*', (req, res) => {
 
 // GET /api/notes should read the db.json file and return all saved notes as JSON
 app.get('/api/notes', (req, res) => {
-  res.json(note);
+  res.json(allNotes.slice(1));
+  // res.sendFile(path.join(__dirname, '/db/db.json'));
+  // res.json(note);
 });
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. 
 // You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post('/api/notes', (req, res) => {
   req.body.id = generateUniqueId();
-  const note = createNewNote(req.body, notes);
-  res.json(note);
+  const newNote = createNewNote(req.body, allNotes);
+  res.json(newNote);
 });
 
 // DELETE /api/notes/:id should receive a query parameter containing the id of a note to delete. 
 // In order to delete a note, you'll need to read all notes from the db.json file, remove the note with the given id property, 
 // and then rewrite the notes to the db.json file.
-// this one needs work
-// app.delete('/api/notes/:id', (req, res) => {
-//     const deleteNote =
-//     res.json(true);
-// });
+function deleteNote(id, notesArray) {
+  for (let i = 0; i < notesArray.length; i++) {
+    let note = notesArray[i];
+
+    if (note.id == id) {
+      notesArray.splice(i, 1);
+      fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify(notesArray, null, 2)
+      );
+
+      break;
+    }
+  }
+};
+
+app.delete('/api/notes/:id', (req, res) => {
+  deleteNote(req.params.id, allNotes);
+  res.json(true);
+});
 
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
