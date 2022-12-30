@@ -6,6 +6,16 @@
 Your challenge is to create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
 ```
 
+I have been struggling a lot with this project. I will finish it in the next couple of weeks but the deadline is tonight so I am submitting what I have in the hope of getting partial credit.
+
+[View my unsuccessful deployment here.](https://warm-badlands-92602.herokuapp.com/)
+
+See some of the errors in this project below.
+
+![Alt text](public/assets/images/error1.png "Insomnia")
+
+![Alt text](public/assets/images/error2.png "Recursive server")
+
 ```
 The application should have a db.json file on the back end that will be used to store and retrieve notes using the fs module.
 
@@ -44,15 +54,44 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ```
 
 ## Mock Up
+![Alt text](public/assets/images/deployment1.png "Homepage")
+![Alt text](public/assets/images/deployment2.png "Notes")
 
-## Installation
+## Installation and Usage
 ```
-# You can use the `-y` flag to skip the package questionnaire and leave default answers
-npm init -y
-# You can use `npm i` as a shortcut for `npm install`
-npm i express
+Once you clone the project, enter npm i in the command line.
+Use npm start to initialize the application.
 ```
 
-## Usage
+## Project Requirements
+```
+Technical Acceptance Criteria: 40%
+Satisfies all of the preceding acceptance criteria plus the following:
+Yes - Application front end must connect to an Express.js back end.
+No - Application back end must store notes with unique IDs in a JSON file.
+No - Application must be deployed to Heroku.
+
+Deployment: 36%
+No - Application deployed at live URL.
+No - Application loads with no errors.
+Yes - Application GitHub URL submitted.
+Yes - GitHub repository contains application code.
+
+Application Quality: 11%
+No - Application console is free of errors.
+
+Repository Quality: 13%
+Yes - Repository has a unique name.
+Yes - Repository follows best practices for file structure and naming conventions.
+Yes - Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+Yes - Repository contains multiple descriptive commit messages.
+Yes - Repository contains quality README file with description, screenshot, and link to deployed application.
+
+Bonus
+Fulfilling the following can add 10 points to your grade. Note that the highest grade you can achieve is still 100:
+Not functional - Application allows users to delete notes.
+```
 
 ## Contributors & Questions
+
+A big thank you to my TAs, AskBCS, my tutor, and my classmates for trying to help me figure this out!
