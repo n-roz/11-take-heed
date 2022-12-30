@@ -94,4 +94,4 @@ Not functional - Application allows users to delete notes.
 
 ## Contributors & Questions
 
-A big thank you to my TAs, AskBCS, my tutor, and my classmates for trying to help me figure this out!
+A big thank you to my TAs, AskBCS, my tutor Melanie Blower, and my classmates for trying to help me figure this out!
