@@ -16,6 +16,8 @@ See some of the errors in this project below.
 
 ![Alt text](public/assets/images/error2.png "Recursive server")
 
+![Alt text](public/assets/images/heroku.png "heroku logs --tail")
+
 ```
 The application should have a db.json file on the back end that will be used to store and retrieve notes using the fs module.
 
